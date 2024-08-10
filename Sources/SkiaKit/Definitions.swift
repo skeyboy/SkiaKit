@@ -180,6 +180,26 @@ public enum FilterQuality : UInt32
     }
 }
 
+
+/**
+GPU SkImage and SkSurfaces can be stored such that (0, 0) in texture space may correspond
+to either the top-left or bottom-left content pixel.
+*/
+public enum GrSurfaceOrigin : UInt32
+{
+    case topLeft = 0
+    case bottomLeft
+
+    internal func toNative () -> gr_surfaceorigin_t {
+        gr_surfaceorigin_t.init(gr_surfaceorigin_t.RawValue(rawValue))
+    }
+
+    internal static func fromNative(_ x: gr_surfaceorigin_t) -> GrSurfaceOrigin {
+        GrSurfaceOrigin.init(rawValue: GrSurfaceOrigin.RawValue(x.rawValue))!
+    }
+}
+
+
 ///
 /// TextAlign adjusts the text relative to the text position.
 /// TextAlign affects glyphs drawn with: `Canvas.drawText`, `Canvas.drawPosText`,

@@ -164,7 +164,12 @@ public final class Font {
         return positions
     }
     
- 
+    public func measureText(_ text: String, paint: Paint) -> Rect {
+        var rect = Rect()
+        sk_font_measure_text(handle, text, text.utf8.count, UTF8_SK_TEXT_ENCODING, &rect, paint.handle)
+        return rect
+    }
+    
     //sk_font_break_text
     //sk_font_get_metrics
     //sk_font_get_path
